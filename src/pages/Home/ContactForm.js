@@ -16,22 +16,22 @@ const ContactForm = () => {
           <input
             type="text"
             placeholder="Email Address"
-            class="input  input-sm w-full py-4 max-w-sm"
+            className="input  input-sm w-full py-4 max-w-sm"
           />
           <br />
           <input
             type="text"
             placeholder="Subject"
-            class="input input-sm w-full my-5 py-4 max-w-sm"
+            className="input input-sm w-full my-5 py-4 max-w-sm"
           />
           <br />
           <textarea
-            class="textarea  w-full max-w-sm"
+            className="textarea  w-full max-w-sm"
             placeholder="Your message"
           ></textarea>{" "}
           <br />
           <br />
-          <button class="btn px-10 btn-primary text-white font-semibold bg-gradient-to-r from-primary to-secondary">
+          <button className="btn px-10 btn-primary text-white font-semibold bg-gradient-to-r from-primary to-secondary">
             Submit
           </button>
         </form>

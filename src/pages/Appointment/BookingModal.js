@@ -1,7 +1,10 @@
 import { format } from "date-fns";
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import auth from "../../firebase.init";
 
 const BookingModal = ({ treatment, date, setTreatment }) => {
+  const [user, loading, error] = useAuthState(auth);
   const { name, slots } = treatment;
 
   const handleBooking = (e) => {
@@ -12,17 +15,17 @@ const BookingModal = ({ treatment, date, setTreatment }) => {
   };
   return (
     <div>
-      <input type="checkbox" id="booking-modal" class="modal-toggle" />
+      <input type="checkbox" id="booking-modal" className="modal-toggle" />
 
-      <div class="modal modal-bottom sm:modal-middle">
-        <div class="modal-box">
+      <div className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box">
           <label
-            for="booking-modal"
-            class="btn btn-sm btn-circle absolute right-2 top-2"
+            htmlFor="booking-modal"
+            className="btn btn-sm btn-circle absolute right-2 top-2"
           >
             ✕
           </label>
-          <h3 class="font-bold text-lg text-secondary">
+          <h3 className="font-bold text-lg text-secondary">
             Booking For
             {name}
           </h3>
@@ -36,35 +39,39 @@ const BookingModal = ({ treatment, date, setTreatment }) => {
               disabled
               value={format(date, "PP")}
               placeholder="Type here"
-              class="input w-full input-bordered max-w-xs"
+              className="input w-full input-bordered max-w-xs"
             />
-            <select name="slot" class="select select-bordered w-full max-w-xs">
-              {slots.map((slot) => (
-                <option value={slot}>{slot}</option>
+            <select name="slot" className="select select-bordered w-full max-w-xs">
+              {slots.map((slot, index) => (
+                <option key={index} value={slot}>{slot}</option>
               ))}
             </select>
             <input
-            name="name"
+              name="name"
               type="text"
-              placeholder="Full Name"
-              class="input w-full input-bordered max-w-xs"
+              disabled
+              value={user?.displayName || ''}
+              className="input w-full input-bordered max-w-xs"
             />
+
             <input
-            name="number"
+              name="email"
+              type="text"
+              disabled
+              value={user?.email || ''}
+              className="input w-full input-bordered max-w-xs"
+            />
+
+            <input
+              name="number"
               type="text"
               placeholder="Phone Number"
-              class="input w-full input-bordered max-w-xs"
-            />
-            <input
-            name='email'
-              type="text"
-              placeholder="Email"
-              class="input w-full input-bordered max-w-xs"
+              className="input w-full input-bordered max-w-xs"
             />
             <input
               type="submit"
               placeholder="Type here"
-              class="input text-white uppercase w-full input-bordered bg-secondary max-w-xs"
+              className="input text-white uppercase w-full input-bordered bg-secondary max-w-xs mb-5"
             />
           </form>
         </div>
