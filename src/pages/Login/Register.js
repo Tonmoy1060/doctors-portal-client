@@ -7,9 +7,11 @@ import {
 } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import Loading from "../shared/Loading";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useToken from '../../hooks/useToken';
 
 const Register = () => {
+  const navigate = useNavigate();
    const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
    const [
       createUserWithEmailAndPassword,
@@ -18,6 +20,8 @@ const Register = () => {
       error,
     ] = useCreateUserWithEmailAndPassword(auth);
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+    
+    const [token] =  useToken(user || gUser)
 
   const {
     register,
@@ -38,8 +42,8 @@ const Register = () => {
     loginError = <p className="text-red-500 ">{error?.message || gError?.message} || {updateError?.message}</p>;
   }
 
-  if (user || gUser) {
-    console.log(user || gUser);
+  if (token) {
+    navigate('/appointment');
   }
    return (
       <div className="flex h-screen justify-center items-center">
